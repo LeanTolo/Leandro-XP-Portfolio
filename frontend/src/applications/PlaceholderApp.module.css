@@ -1,0 +1,27 @@
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+  background: #fff;
+  color: #222;
+}
+
+.root h2 {
+  margin: 8px 0 0;
+  font-size: 18px;
+  color: #0b3d8f;
+}
+
+.root p {
+  margin: 0;
+}
+
+.plan {
+  color: #666;
+  font-size: 12px;
+}

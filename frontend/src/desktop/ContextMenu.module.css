@@ -1,0 +1,46 @@
+.menu {
+  position: fixed;
+  z-index: 100000;
+  min-width: 160px;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #aca899;
+  box-shadow: 2px 2px 3px rgb(0 0 0 / 35%);
+  font: 12px Tahoma, sans-serif;
+  outline: none;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  padding: 4px 24px 4px 26px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: #000;
+  cursor: default;
+}
+
+.item:hover:not(:disabled),
+.item:focus-visible {
+  background: #316ac5;
+  color: #fff;
+  outline: none;
+}
+
+.item:disabled {
+  color: #aca899;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.sep {
+  height: 1px;
+  margin: 3px 2px;
+  background: #aca899;
+}

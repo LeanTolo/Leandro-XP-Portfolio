@@ -1,0 +1,123 @@
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90000;
+  height: 30px;
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  user-select: none;
+  background: linear-gradient(180deg, #3168d5 0%, #4993e6 8%, #2a68d9 15%, #245edb 55%, #2459d3 90%, #1941a5 100%);
+  border-top: 1px solid #1941a5;
+}
+
+.start {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 22px 0 10px;
+  border: 0;
+  border-radius: 0 14px 14px 0;
+  color: #fff;
+  cursor: pointer;
+  font:
+    italic bold 20px Trebuchet MS,
+    Tahoma,
+    sans-serif;
+  text-shadow: 1px 1px 2px rgb(0 0 0 / 65%);
+  background: linear-gradient(180deg, #5fb85f 0%, #3c9f3c 12%, #2e8b2e 45%, #38933b 85%, #226a24 100%);
+  box-shadow:
+    inset -2px 0 3px rgb(0 0 0 / 35%),
+    inset 0 1px 1px rgb(255 255 255 / 45%);
+}
+
+.start:hover {
+  filter: brightness(1.1);
+}
+
+.startOpen,
+.start:active {
+  filter: brightness(0.88);
+}
+
+.start:focus-visible,
+.task:focus-visible {
+  outline: 1px dotted #fff;
+  outline-offset: -3px;
+}
+
+.tasks {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 0;
+}
+
+.task {
+  flex: 0 1 160px;
+  min-width: 36px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border: 1px solid #1e4fb5;
+  border-radius: 3px;
+  color: #fff;
+  cursor: default;
+  font: 12px Tahoma, sans-serif;
+  text-align: left;
+  background: linear-gradient(180deg, #4a8cf0 0%, #3a7be6 50%, #3573dd 100%);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 30%);
+}
+
+.task span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task:hover {
+  filter: brightness(1.1);
+}
+
+.taskActive {
+  background: linear-gradient(180deg, #1c4fb3 0%, #2559c2 100%);
+  box-shadow: inset 1px 1px 3px rgb(0 0 0 / 45%);
+  font-weight: bold;
+}
+
+.tray {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  color: #fff;
+  font: 12px Tahoma, sans-serif;
+  background: linear-gradient(180deg, #0c8ae9 0%, #1290e9 8%, #0f87e0 50%, #0b78d0 90%, #0a6bc0 100%);
+  border-left: 1px solid #0a4aa8;
+  box-shadow: inset 1px 0 1px #3fa6f0;
+}
+
+@media (max-width: 767px) {
+  .start span {
+    display: none;
+  }
+
+  .start {
+    padding: 0 14px 0 8px;
+  }
+
+  .task {
+    flex: 0 0 36px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .task span {
+    display: none;
+  }
+}
