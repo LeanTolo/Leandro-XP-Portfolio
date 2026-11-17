@@ -25,4 +25,9 @@ Wallpaper estilo Bliss (SVG original), iconos, taskbar con reloj y botones por v
 - `docs/ESTUDIO.md` — guía de estudio de lo implementado
 
 ## Pendiente
-Sonidos y silencio global, diálogos clásicos, Fases 2–6.
+Diálogos clásicos, Fases 2–6.
+
+## Créditos y avisos
+- **Sonidos:** los archivos de `frontend/public/sounds/` son sonidos del sistema de Windows XP, obtenidos de la colección [archive.org/details/windowsxpstartup_201910](https://archive.org/details/windowsxpstartup_201910). **Son propiedad de Microsoft** y se incluyen solo con fines de homenaje/portfolio sin fines de lucro. Si sos titular de los derechos y querés que se retiren, abrí un issue y se eliminarán.
+- Wallpaper e iconos son SVG originales de este proyecto.
+- "Windows XP" y "Microsoft" son marcas de Microsoft Corporation; este proyecto no está afiliado ni respaldado por ella.

@@ -27,7 +27,7 @@ Actuá como **Senior Software Architect** y **Senior Full Stack Developer** (C#/
 - **Nunca expongas API keys.** Secretos solo en variables de entorno / secret manager. `.env` fuera de git.
 - Dependencias mínimas. Justificá cada una nueva.
 - Sin IA falsa: toda respuesta simulada debe indicarse como tal (live vs. simulated).
-- No uses assets con copyright de Microsoft (imagen Bliss original, iconos oficiales, sonidos): crear equivalentes originales.
+- No uses assets con copyright de Microsoft (imagen Bliss original, iconos oficiales): crear equivalentes originales. **Excepción decidida por el dueño del proyecto:** los sonidos de Windows XP en `frontend/public/sounds/` (origen: archive.org, colección `windowsxpstartup_201910`), usados con fines de portfolio sin fines de lucro; el riesgo de copyright fue discutido y asumido. No ampliar la excepción a otros assets sin pedirlo.
 
 ## Stack
 Frontend: React + TypeScript + Vite, CSS Modules (sin librerías de UI). Backend (Fase 3+): ASP.NET Core Web API, .NET 8+ LTS. IA: Gemini u otro con free tier, embeddings open-source, Postgres + pgvector (Supabase) solo cuando haga falta.
