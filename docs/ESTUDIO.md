@@ -153,3 +153,54 @@ export type SoundName = keyof typeof sounds   // el tipo sale del mapa: no se pu
 3. ¿Qué ventaja da derivar `SoundName` de las claves del mapa?
 4. ¿Por qué `play()` no está dentro del reducer?
 5. ¿Qué riesgo asume usar los sonidos originales y cómo se mitiga?
+
+---
+
+## Ciclo de energía: reiniciar como en XP (implementado)
+
+### Qué es
+El botón **Reiniciar** del menú Inicio ya no recarga la página: recorre las pantallas de un reinicio de XP, con sus sonidos.
+
+```
+running → shuttingDown → off → booting → welcome → loggingIn → running
+ (escritorio) (azul, sonido  (negro)  (barra de   (espera tu   (carga)   (sonido
+              de apagado)             progreso)   clic; startup)          logon)
+```
+Las pantallas son **originales** (wordmark "Leandro OS", colores azul/negro): no usan el logo ni los textos de Microsoft. Solo los sonidos son de XP (ver excepción en `CLAUDE.md`).
+
+Archivos: `src/power/powerPhases.ts` (máquina de estados pura), `usePower.ts` (hook que la ejecuta), `PowerScreen.tsx` + `.module.css` (pantallas).
+
+### Por qué así (alternativas descartadas)
+- **`window.location.reload()` (lo anterior):** simple, pero no permite pantallas intermedias ni sonidos y pierde la página entera.
+- **Estado de energía dentro del reducer de ventanas:** mezcla dos responsabilidades. El ciclo de energía es *más grande* que las ventanas: las contiene.
+- **Un Context de energía:** hoy solo `App` y el botón del Inicio lo usan; pasar `onRestart` por dos niveles de props es más simple que un Provider (YAGNI).
+- **Elegida:** máquina de estados pura + hook. La lógica de transiciones se testea sin timers ni DOM.
+
+### Conceptos
+**1. Máquina de estados.** Las transiciones válidas son datos, no `if` desparramados. `requestRestart` solo avanza desde `running`; `requestLogIn` solo desde `welcome`. Pedidos inválidos devuelven la misma fase (se ignoran).
+```ts
+export const AUTO_NEXT = { shuttingDown: { to: 'off', afterMs: 3500 }, /* ... */ }
+```
+**2. Fases automáticas vs. esperar al usuario.** `welcome` no está en `AUTO_NEXT`: espera el clic, como XP. Eso además cumple la política de autoplay.
+
+**3. Efecto con timer y limpieza.** `usePower` programa un `setTimeout` por fase y lo cancela en el cleanup del `useEffect`; así no quedan timers colgados.
+
+**4. Reset por desmontaje.** Fuera de `running`, `App` no renderiza el escritorio. Al volver, el `useReducer` de ventanas arranca desde `initialState`: todas las ventanas se cierran sin código extra.
+
+**5. Sonidos en la transición, no en un efecto.** `go(to)` hace `setPhase` + `play(ENTER_SOUND[to])`. Un `useEffect` sobre `phase` se ejecuta dos veces en StrictMode y duplicaría el sonido. Además, la carga inicial en `running` no es una transición: no suena nada.
+
+### Trade-offs y límites
+- Un reinicio completo dura ~11 s (+ el tiempo hasta tu clic en la bienvenida): fiel a XP, pero largo. Es una acción explícita del usuario; si molesta, se acortan los tiempos en `AUTO_NEXT`.
+- Los tiempos están ajustados a la duración de los mp3 (apagado ~6,5 s, arranque ~10 s, logon ~4,3 s). Si el sonido está silenciado, el flujo es idéntico pero mudo.
+- Si el usuario no hace clic en la bienvenida, se queda ahí: es el comportamiento original.
+- No hay botón "Apagar" ni "Cerrar sesión" (no tendría sentido apagar una página web).
+
+### Cómo se verificó
+`npm run build` y `npm test` (37 tests): la máquina de estados (transiciones válidas/ignoradas, ciclo completo, sonidos de entrada) y el render de cada pantalla (`renderToString`). **No se vio en un navegador real**: falta probar a ojo y oído el flujo completo y ajustar tiempos/estilos.
+
+### Preguntas de repaso
+1. ¿Por qué la lógica de transiciones es una función pura y los timers viven en un hook?
+2. ¿Por qué `welcome` espera un clic en vez de avanzar sola?
+3. ¿Cómo se consigue que reiniciar cierre todas las ventanas sin tocar el reducer?
+4. ¿Por qué el sonido se dispara en `go()` y no en un `useEffect` sobre `phase`?
+5. ¿Qué cambia si más adelante hay que sumar "Cerrar sesión"?

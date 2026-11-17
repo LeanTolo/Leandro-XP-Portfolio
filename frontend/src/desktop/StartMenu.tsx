@@ -2,16 +2,16 @@ import { useEffect } from 'react'
 import { play } from '../audio/soundEngine.ts'
 import { Icon } from '../components/Icon.tsx'
 import { apps } from '../config/apps.ts'
+import { USER_NAME } from '../config/user.ts'
 import styles from './StartMenu.module.css'
 
 interface Props {
   onOpenApp: (appId: string) => void
   onClose: () => void
+  onRestart: () => void
 }
 
-const USER_NAME = 'Leandro'
-
-export function StartMenu({ onOpenApp, onClose }: Props) {
+export function StartMenu({ onOpenApp, onClose, onRestart }: Props) {
   // Cierra con clic fuera (excepto el botón Inicio, que alterna por su cuenta) o con Esc.
   useEffect(() => {
     const away = (e: PointerEvent) => {
@@ -65,7 +65,7 @@ export function StartMenu({ onOpenApp, onClose }: Props) {
       </div>
 
       <footer className={styles.footer}>
-        <button type="button" role="menuitem" className={styles.power} onClick={() => window.location.reload()}>
+        <button type="button" role="menuitem" className={styles.power} onClick={onRestart}>
           <Icon name="power" size={22} />
           <span>Reiniciar</span>
         </button>

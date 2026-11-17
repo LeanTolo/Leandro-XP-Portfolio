@@ -1,0 +1,234 @@
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font: 14px Tahoma, 'Segoe UI', sans-serif;
+  user-select: none;
+  cursor: default;
+}
+
+/* ---- Wordmark propio ---- */
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.brandName {
+  font-size: 40px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.brandOs {
+  padding: 0 7px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #ff8a3d, #e5531b);
+  border-radius: 4px;
+}
+
+/* ---- Cierre: azul con mensaje ---- */
+.shutdown {
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: linear-gradient(180deg, #00309c 0%, #1a4fc4 50%, #00309c 100%);
+}
+
+.message {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Pantalla negra (apagado total) ---- */
+.off {
+  background: #000;
+}
+
+/* ---- Arranque: negro + barra de progreso ---- */
+.boot {
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  background: #000;
+}
+
+.bar {
+  position: relative;
+  width: 200px;
+  height: 18px;
+  overflow: hidden;
+  border: 2px solid #b2b2b2;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+.chunks {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  width: 54px;
+  background: repeating-linear-gradient(90deg, #2e6bd8 0 14px, transparent 14px 18px);
+  border-radius: 2px;
+  animation: slide 1.6s linear infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-60px);
+  }
+  to {
+    transform: translateX(204px);
+  }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 24px;
+  color: #c9c9c9;
+  font-size: 12px;
+}
+
+/* ---- Bienvenida / inicio de sesión ---- */
+.welcome {
+  background: linear-gradient(90deg, #5a7edc 0%, #6a8ee6 50%, #5a7edc 100%);
+}
+
+.topBand,
+.bottomBand {
+  flex: 0 0 auto;
+  background: #00309c;
+}
+
+.topBand {
+  height: 12vh;
+  min-height: 52px;
+  border-bottom: 2px solid #f4a64a;
+}
+
+.bottomBand {
+  display: flex;
+  align-items: center;
+  height: 12vh;
+  min-height: 52px;
+  padding: 0 32px;
+  border-top: 2px solid #f4a64a;
+  font-size: 13px;
+}
+
+.middle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 0 24px;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  text-align: right;
+}
+
+.hint {
+  min-height: 1.3em;
+  margin: 0;
+  font-size: 16px;
+}
+
+.right {
+  flex: 1;
+  padding-left: 48px;
+  border-left: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.user:hover:enabled,
+.user:focus-visible {
+  background: rgba(0, 48, 156, 0.45);
+  outline: none;
+}
+
+.user:disabled {
+  cursor: default;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(180deg, #7aa7ff, #2257c9);
+  border: 2px solid #fff;
+  border-radius: 6px;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userText strong {
+  font-size: 20px;
+}
+
+.userText em {
+  font-size: 13px;
+  font-style: normal;
+}
+
+@media (max-width: 767px) {
+  .middle {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .left {
+    flex: none;
+    align-items: center;
+    text-align: center;
+  }
+
+  .right {
+    flex: none;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .brandName {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chunks {
+    animation-duration: 4s;
+  }
+}

@@ -18,7 +18,11 @@ interface MenuState {
   items: ContextMenuItem[]
 }
 
-export function Desktop() {
+interface Props {
+  onRestart: () => void
+}
+
+export function Desktop({ onRestart }: Props) {
   const { state, openApp } = useWindowManager()
   const isMobile = useIsMobile()
   const [startOpen, setStartOpen] = useState(false)
@@ -68,7 +72,7 @@ export function Desktop() {
         ))}
       </main>
 
-      {startOpen && <StartMenu onOpenApp={open} onClose={closeStart} />}
+      {startOpen && <StartMenu onOpenApp={open} onClose={closeStart} onRestart={onRestart} />}
       <Taskbar
         startOpen={startOpen}
         onToggleStart={() => {

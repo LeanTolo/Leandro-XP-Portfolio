@@ -9,7 +9,8 @@ Estado: ✅ hecho · 🔶 parcial · ⬜ pendiente. Cada fase se aprueba antes d
 - ✅ Registro de aplicaciones (`config/apps.ts`) con carga diferida; apps placeholder honestas.
 - ✅ Menú contextual en iconos, teclado básico (Enter/Esc/foco visible), responsive móvil.
 - ✅ Tests del reducer de ventanas (10).
-- ✅ Sonidos reales de XP (39 archivos mp3 en `public/sounds/`, decisión del dueño sobre copyright) + silencio global (activado por defecto, solo por sesión). Conectados: ding, doble clic, menús, minimizar, restaurar/maximizar.
+- ✅ Sonidos reales de XP (39 archivos mp3 en `public/sounds/`, decisión del dueño sobre copyright) + silencio global (activado por defecto, solo por sesión). Conectados: ding, doble clic, menús, minimizar, restaurar/maximizar, reinicio.
+- ✅ Reinicio estilo XP: cierre → negro → arranque → bienvenida (clic) → carga → escritorio, con pantallas originales y sus sonidos. Los demás (error, papelera, apagar…) esperan a su función.
 - ⬜ Menú contextual "Propiedades" (deshabilitado), diálogos clásicos.
 
 ## Fase 2 — Portfolio profesional ⬜
