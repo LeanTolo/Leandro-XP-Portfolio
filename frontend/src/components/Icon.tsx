@@ -11,6 +11,8 @@ export type IconName =
   | 'user'
   | 'logo'
   | 'power'
+  | 'speaker'
+  | 'speakerOff'
 
 interface IconProps {
   name: IconName
@@ -164,6 +166,18 @@ export function Icon({ name, size = 32 }: IconProps) {
         <rect x="4" y="4" width="40" height="40" rx="6" fill="#d9391b" stroke="#fff" strokeWidth="2" />
         <path d="M24 12v13" stroke="#fff" strokeWidth="4" strokeLinecap="round" />
         <path d="M16 17a12 12 0 1 0 16 0" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" />
+      </>
+    ),
+    speaker: (
+      <>
+        <path d="M6 18h8l10-8v28l-10-8H6z" fill="#fff" />
+        <path d="M30 17a9 9 0 0 1 0 14M35 11a17 17 0 0 1 0 26" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" />
+      </>
+    ),
+    speakerOff: (
+      <>
+        <path d="M6 18h8l10-8v28l-10-8H6z" fill="#fff" />
+        <path d="M30 18l12 12M42 18L30 30" stroke="#ffb3a6" strokeWidth="4" strokeLinecap="round" />
       </>
     ),
   }

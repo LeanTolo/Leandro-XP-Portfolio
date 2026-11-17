@@ -1,3 +1,4 @@
+import { useSoundEnabled } from '../audio/useSound.ts'
 import { Icon } from '../components/Icon.tsx'
 import { appsById } from '../config/apps.ts'
 import { useWindowManager } from '../windowManager/WindowManagerContext.tsx'
@@ -11,6 +12,7 @@ interface Props {
 
 export function Taskbar({ startOpen, onToggleStart }: Props) {
   const { state, focus, minimize, restore } = useWindowManager()
+  const [soundOn, setSoundOn] = useSoundEnabled()
 
   return (
     <footer className={styles.taskbar}>
@@ -43,6 +45,16 @@ export function Taskbar({ startOpen, onToggleStart }: Props) {
       </div>
 
       <div className={styles.tray}>
+        <button
+          type="button"
+          className={styles.sound}
+          aria-pressed={soundOn}
+          aria-label={soundOn ? 'Silenciar sonidos' : 'Activar sonidos'}
+          title={soundOn ? 'Sonido activado (click para silenciar)' : 'Sonido silenciado (click para activar)'}
+          onClick={() => setSoundOn(!soundOn)}
+        >
+          <Icon name={soundOn ? 'speaker' : 'speakerOff'} size={18} />
+        </button>
         <Clock />
       </div>
     </footer>

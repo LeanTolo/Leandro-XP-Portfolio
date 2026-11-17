@@ -93,4 +93,63 @@ Iconos y botones son `<button>` reales (foco por Tab, Enter abre); ventanas con 
 6. ¿Cuándo dejaría de bastar `useReducer + Context` y pasarías a otra solución?
 
 ### Pendiente / límites actuales
-Sonidos y silencio global; diálogos clásicos; "Propiedades"; persistencia de posición de ventanas; navegación por teclado completa en menús.
+Diálogos clásicos; "Propiedades"; persistencia de posición de ventanas; navegación por teclado completa en menús.
+
+---
+
+## Sonidos y silencio global (implementado)
+
+### Qué es
+Sonidos del sistema de Windows XP reproducidos con `HTMLAudioElement`, más un botón de parlante en la bandeja que los activa/silencia. Arrancan **activados** en cada carga; el parlante los silencia solo durante la sesión (no se persiste).
+
+| Acción | Sonido |
+|---|---|
+| Activar el parlante | `ding` |
+| Abrir el menú Inicio (no al cerrarlo) | `start` |
+| Doble clic en un icono del escritorio | `start` |
+| Elegir ítem de menú (Inicio / contextual) | `menuCommand` |
+| Minimizar | `minimize` |
+| Restaurar / maximizar | `restore` |
+| Reiniciar: pantalla de cierre | `shutdown` |
+| Reiniciar: pantalla de bienvenida | `startup` |
+| Reiniciar: al llegar al escritorio | `logon` |
+
+Abrir y cerrar ventanas es silencioso (igual que en XP). En `public/sounds/` hay 39 mp3 de la colección; solo 8 están conectados, el resto espera a su función (error, papelera…).
+
+Archivos: `src/audio/sounds.ts` (mapa nombre→archivo), `soundEngine.ts` (estado + reproducción), `useSound.ts` (hook), `audio.test.ts`.
+
+### Por qué así (alternativas descartadas)
+- **Sintetizar los sonidos con Web Audio (A / A+):** se probó dos veces (tonos puros, luego pads + FM + reverb). Sin importar el refinamiento, no se parecían a XP: el timbre original viene de instrumentos y producción que no se imitan con osciladores. Se descartó y se revirtió.
+- **Sonidos CC0 de otros bancos:** más seguros legalmente pero no suenan a XP.
+- **Archivos originales de XP (elegido):** máxima fidelidad. **Trade-off asumido:** tienen copyright de Microsoft. Es una decisión del dueño, registrada como excepción en `CLAUDE.md` y con aviso en el README. Mitigaciones: uso sin fines de lucro, nota de origen y compromiso de retirarlos si lo piden.
+- **Cambio de criterio:** primero arrancaban apagados y persistidos (pensando en una oficina); en la práctica obligaba a mutear/desmutear en cada carga para que sonara, así que ahora arrancan activados y sin persistencia. **Lecciones:** (1) probar una hipótesis barata antes de invertir (la síntesis); (2) cuando una restricción del proyecto choca con un objetivo, se documenta la excepción en vez de ignorarla en silencio.
+
+### Conceptos
+**1. Política de autoplay.** Los navegadores bloquean audio hasta que el usuario interactúa. Todos los sonidos nacen de un clic o toque (doble clic, menú, botón), que es la interacción que el navegador exige, así que pueden arrancar activados. El `ding` confirma que se reactivó el sonido. `audio.play()` devuelve una Promise que puede rechazarse; se captura para no romper la UI.
+
+**2. Nombre lógico vs. archivo.** La UI pide `play('minimize')`; el mapa decide el archivo. Cambiar un sonido es tocar una línea.
+```ts
+export const sounds = { minimize: 'windows-xp-minimize.mp3', /* ... */ } as const
+export type SoundName = keyof typeof sounds   // el tipo sale del mapa: no se puede pedir un sonido inexistente
+```
+**3. Estado fuera de React + `useSyncExternalStore`.** El motor es un módulo con un flag y listeners; `play()` se llama desde cualquier lado sin Provider. El hook se suscribe con `useSyncExternalStore(subscribe, getSnapshot)`.
+
+**4. Efectos fuera del reducer.** `play()` se invoca en `WindowManagerContext`, no en `windowReducer`, que sigue siendo puro.
+
+**5. `import.meta.env.BASE_URL`.** Las rutas a `public/` se arman con la base de Vite, así no se rompen si el sitio se publica bajo un subpath.
+
+### Trade-offs y límites
+- Un `Audio` nuevo por reproducción permite superponer sonidos y el navegador cachea el archivo; costo: un objeto por sonido (despreciable acá).
+- `toggleMaximize` no sabe si maximiza o restaura (lo decide el reducer): usa el mismo sonido para ambos.
+- El singleton de módulo es global; en tests hay que reimportarlo (`vi.resetModules()`).
+- 596 KB extra en el build; se cargan solo al reproducirse.
+
+### Cómo se verificó
+`npm run build` y `npm test` (36 tests en total; los de audio son 8: cada sonido del mapa apunta a un archivo real, activado por defecto, silenciar/reactivar, y tolerancia a un `play()` rechazado). **No se escuchó en un navegador real**: falta probarlo a oído.
+
+### Preguntas de repaso
+1. ¿Por qué pueden arrancar activados si el navegador bloquea el autoplay? ¿Y por qué no se persiste el mute?
+2. ¿Qué pasa si `audio.play()` es rechazado y por qué se captura?
+3. ¿Qué ventaja da derivar `SoundName` de las claves del mapa?
+4. ¿Por qué `play()` no está dentro del reducer?
+5. ¿Qué riesgo asume usar los sonidos originales y cómo se mitiga?

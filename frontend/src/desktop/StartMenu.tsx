@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { play } from '../audio/soundEngine.ts'
 import { Icon } from '../components/Icon.tsx'
 import { apps } from '../config/apps.ts'
 import styles from './StartMenu.module.css'
@@ -26,6 +27,7 @@ export function StartMenu({ onOpenApp, onClose }: Props) {
   }, [onClose])
 
   const open = (id: string) => {
+    play('menuCommand')
     onOpenApp(id)
     onClose()
   }

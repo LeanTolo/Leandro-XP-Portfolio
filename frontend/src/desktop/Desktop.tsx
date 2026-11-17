@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { play } from '../audio/soundEngine.ts'
 import { apps } from '../config/apps.ts'
 import { getDesktopArea } from '../config/layout.ts'
 import { useIsMobile } from '../hooks/useIsMobile.ts'
@@ -42,7 +43,10 @@ export function Desktop() {
               selected={selectedId === app.id}
               isMobile={isMobile}
               onSelect={() => setSelectedId(app.id)}
-              onOpen={() => open(app.id)}
+              onOpen={() => {
+                play('start') // doble clic (o toque en móvil) sobre un icono del escritorio
+                open(app.id)
+              }}
               onContextMenu={(e) =>
                 setMenu({
                   x: e.clientX,
@@ -65,7 +69,13 @@ export function Desktop() {
       </main>
 
       {startOpen && <StartMenu onOpenApp={open} onClose={closeStart} />}
-      <Taskbar startOpen={startOpen} onToggleStart={() => setStartOpen((v) => !v)} />
+      <Taskbar
+        startOpen={startOpen}
+        onToggleStart={() => {
+          if (!startOpen) play('start') // solo al abrir el menú, no al cerrarlo
+          setStartOpen(!startOpen)
+        }}
+      />
       {menu && <ContextMenu {...menu} onClose={closeMenu} />}
     </div>
   )

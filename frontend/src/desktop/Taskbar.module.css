@@ -102,6 +102,27 @@
   box-shadow: inset 1px 0 1px #3fa6f0;
 }
 
+.sound {
+  display: grid;
+  place-items: center;
+  margin-right: 8px;
+  padding: 2px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sound:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sound:focus-visible {
+  outline: 1px dotted #fff;
+  outline-offset: 1px;
+}
+
 @media (max-width: 767px) {
   .start span {
     display: none;

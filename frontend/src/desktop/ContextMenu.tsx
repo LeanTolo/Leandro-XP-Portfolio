@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { play } from '../audio/soundEngine.ts'
 import styles from './ContextMenu.module.css'
 
 export interface ContextMenuItem {
@@ -57,6 +58,7 @@ export function ContextMenu({ x, y, items, onClose }: Props) {
               className={`${styles.item} ${item.bold ? styles.bold : ''}`}
               disabled={item.disabled}
               onClick={() => {
+                play('menuCommand')
                 item.onSelect?.()
                 onClose()
               }}

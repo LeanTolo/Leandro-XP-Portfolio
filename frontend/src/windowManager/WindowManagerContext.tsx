@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useReducer, type ReactNode } from 'react'
+import { play } from '../audio/soundEngine.ts'
 import { appsById } from '../config/apps.ts'
 import { initialState, windowReducer } from './reducer.ts'
 import type { Bounds, WindowManagerState } from './types.ts'
@@ -32,9 +33,20 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
       openApp,
       close: (id) => dispatch({ type: 'close', id }),
       focus: (id) => dispatch({ type: 'focus', id }),
-      minimize: (id) => dispatch({ type: 'minimize', id }),
-      toggleMaximize: (id) => dispatch({ type: 'toggleMaximize', id }),
-      restore: (id) => dispatch({ type: 'restore', id }),
+      // Los sonidos son efectos secundarios: viven acá y no en el reducer, que se mantiene puro.
+      // Como en XP, abrir y cerrar ventanas es silencioso.
+      minimize: (id) => {
+        dispatch({ type: 'minimize', id })
+        play('minimize')
+      },
+      toggleMaximize: (id) => {
+        dispatch({ type: 'toggleMaximize', id })
+        play('restore')
+      },
+      restore: (id) => {
+        dispatch({ type: 'restore', id })
+        play('restore')
+      },
       setBounds: (id, bounds) => dispatch({ type: 'setBounds', id, bounds }),
     }),
     [state, openApp],
