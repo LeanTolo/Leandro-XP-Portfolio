@@ -13,7 +13,7 @@ Estado: ✅ hecho · 🔶 parcial · ⬜ pendiente. Cada fase se aprueba antes d
 - ⬜ Menú contextual "Propiedades" (deshabilitado), diálogos clásicos.
 
 ## Fase 2 — Portfolio profesional ⬜
-My Documents (CV, experiencia, educación, skills, contacto, PDF descargable), My Computer, proyectos, Terminal. Datos en `frontend/src/data/` a partir de `Leandro_Toloza_CV.pdf`. **Decisión pendiente:** qué datos de contacto se publican.
+My Documents (CV, experiencia, educación, skills, contacto, PDF descargable), My Computer, proyectos, Terminal. Datos en `frontend/src/data/` a partir de `frontend/public/Leandro_Toloza_CV.pdf`. **Decisión pendiente:** qué datos de contacto se publican.
 
 ## Fase 3 — Asistente RAG ⬜
 KB curada, ingesta, chunking, embeddings locales, vector store (JSON → pgvector si hace falta), retrieval, LLM, citas, modo desarrollador, modo demo (live vs. simulated), `docs/rag-pipeline.md`. Primero: verificar free tier vigente del proveedor LLM. Aparece el backend .NET.

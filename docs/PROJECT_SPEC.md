@@ -12,7 +12,7 @@ Portfolio personal presentado como un sistema operativo interactivo inspirado en
 ## 2. Professional profile
 Desarrollador de software en Argentina. ~5 años de experiencia. Especialidad: C# y .NET / ASP.NET Core. Experiencia con Go, APIs REST, bases relacionales y NoSQL (PostgreSQL, SQL Server, MongoDB), EF Core, RabbitMQ, microservicios y sistemas distribuidos, Docker y Kubernetes, CI/CD, testing automatizado, cloud.
 
-**Posicionamiento:** Senior .NET Backend Developer que está ampliando activamente su conocimiento de IA / AI Engineering. **No** presentarlo como AI Engineer experimentado si los proyectos no lo demuestran. Toda la información profesional debe ser editable desde archivos de datos centralizados. **No inventar** experiencia, empleadores, proyectos, certificaciones ni logros. Fuente de verdad de datos reales: `Leandro_Toloza_CV.pdf` (raíz del repo).
+**Posicionamiento:** Senior .NET Backend Developer que está ampliando activamente su conocimiento de IA / AI Engineering. **No** presentarlo como AI Engineer experimentado si los proyectos no lo demuestran. Toda la información profesional debe ser editable desde archivos de datos centralizados. **No inventar** experiencia, empleadores, proyectos, certificaciones ni logros. Fuente de verdad de datos reales: `frontend/public/Leandro_Toloza_CV.pdf`.
 
 ## 3. Visual identity & UX
 Todo simula un escritorio Windows XP (tema Luna, wallpaper Bliss-like, taskbar azul, botón Inicio, accesos directos, iconos de carpeta clásicos, Explorer, barras de título con minimizar/maximizar/cerrar, diálogos clásicos, sonidos opcionales). Nostálgico pero pulido, nunca una parodia de baja calidad.

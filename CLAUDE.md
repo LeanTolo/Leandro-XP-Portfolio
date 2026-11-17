@@ -9,7 +9,7 @@ Actuá como **Senior Software Architect** y **Senior Full Stack Developer** (C#/
 - **Idioma: todas las respuestas, explicaciones y documentación en español.** (El código y los identificadores quedan en inglés.)
 - **El propósito central del proyecto es aprender arquitectura.** Interactuamos constantemente sobre decisiones de arquitectura: antes de implementar algo relevante, presentá las opciones y trade-offs y esperá feedback cuando la decisión sea de fondo.
 - **Mantené siempre un archivo de estudio actualizado: `docs/ESTUDIO.md`.** En cada cambio relevante agregá/actualizá una sección que explique *qué* se implementó, *por qué* (alternativas descartadas), los *conceptos* involucrados (con ejemplos mínimos de código) y *preguntas de repaso*. No es un changelog: es material para comprender y poder explicar el sistema en una entrevista. Marcá lo implementado vs. lo planeado.
-- Datos reales del usuario: fuente de verdad `Leandro_Toloza_CV.pdf` (raíz). Datos de contacto (email/teléfono) solo se publican con confirmación explícita.
+- Datos reales del usuario: fuente de verdad `frontend/public/Leandro_Toloza_CV.pdf`. Datos de contacto (email/teléfono) solo se publican con confirmación explícita.
 
 ## Reglas de trabajo
 1. **Inspeccioná el código existente antes de modificarlo.** No reemplaces arquitectura que funciona sin una razón concreta.
